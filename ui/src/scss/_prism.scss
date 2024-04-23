@@ -1,0 +1,323 @@
+:root {
+    --prismColorText: #111b27;
+    --prismColorBackground: #e3eaf2;
+    --prismColorAccent: #8da1b9;
+    --prismColorCdataComment: #3c526d;
+    --prismColorPunctuation: #111b27;
+    --prismColorImportant: #006d6d;
+    --prismColorAttribute: #755f00;
+    --prismColorClass: #005a8e;
+    --prismColorValue: #116b00;
+    --prismColorKeyword: #af00af;
+    --prismColorFunction: #7c00aa;
+    --prismColorSelector: #a04900;
+    --prismColorDeleted: #c22f2e;
+    --prismColorThis: #005a8e;
+    --prismColorToolbarText: #e3eaf2;
+    --prismColorToolbarBackground: #005a8e;
+    --prismColorToolbarHover: #005a8eda;
+    --prismColorLineHighlightBackground: #8da1b92f;
+    --prismColorLineHighlightGradient: #8da1b925;
+    --prismColorLineHighlightText: #e3eaf2;
+    --prismColorLineNumbersBorder: #8da1b97a;
+    --prismColorLineNumbersBackground: #d0dae77a;
+    --colorLineNumbersText: #3c526dda;
+    --prismColorBraceLevel1: #755f00;
+    --prismColorBraceLevel2: #af00af;
+    --prismColorBraceLevel3: #005a8e;
+    --prismColorBraceLevel4: #7c00aa;
+    --prismColorDiffDeleted: #c22f2e1f;
+    --prismColorDiffInserted: #116b001f;
+    --prismColorCommandLinePromptBorder: #8da1b97a;
+    --prismColorCommandLinePromptText: #3c526dda;
+}
+
+.prism-theme {
+
+    code[class*=language-],
+    pre[class*=language-] {
+        color: var(--prismColorText);
+        background: 0 0;
+        font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+        text-align: left;
+        white-space: pre;
+        word-spacing: normal;
+        word-break: normal;
+        word-wrap: normal;
+        line-height: 1.5;
+        -moz-tab-size: 4;
+        -o-tab-size: 4;
+        tab-size: 4;
+        -webkit-hyphens: none;
+        -moz-hyphens: none;
+        -ms-hyphens: none;
+        hyphens: none
+    }
+
+    code[class*=language-] ::-moz-selection,
+    code[class*=language-]::-moz-selection,
+    pre[class*=language-] ::-moz-selection,
+    pre[class*=language-]::-moz-selection {
+        background: var(--prismColorAccent)
+    }
+
+    code[class*=language-] ::selection,
+    code[class*=language-]::selection,
+    pre[class*=language-] ::selection,
+    pre[class*=language-]::selection {
+        background: var(--prismColorAccent)
+    }
+
+    pre[class*=language-] {
+        padding: 1em;
+        margin: .5em 0;
+        overflow: auto
+    }
+
+    :not(pre)>code[class*=language-],
+    pre[class*=language-] {
+        background: var(--prismColorBackground)
+    }
+
+    :not(pre)>code[class*=language-] {
+        padding: .1em .3em;
+        border-radius: .3em;
+        white-space: normal
+    }
+
+    .token.cdata,
+    .token.comment,
+    .token.doctype,
+    .token.prolog {
+        color: var(--prismColorCdataComment)
+    }
+
+    .token.punctuation {
+        color: var(--prismColorPunctuation)
+    }
+
+    .token.delimiter.important,
+    .token.selector .parent,
+    .token.tag,
+    .token.tag .token.punctuation {
+        color: var(--prismColorImportant)
+    }
+
+    .token.attr-name,
+    .token.boolean,
+    .token.boolean.important,
+    .token.constant,
+    .token.number,
+    .token.selector .token.attribute {
+        color: var(--prismColorAttribute)
+    }
+
+    .token.class-name,
+    .token.key,
+    .token.parameter,
+    .token.property,
+    .token.property-access,
+    .token.variable {
+        color: var(--prismColorClass)
+    }
+
+    .token.attr-value,
+    .token.color,
+    .token.inserted,
+    .token.selector .token.value,
+    .token.string,
+    .token.string .token.url-link {
+        color: var(--prismColorValue)
+    }
+
+    .token.builtin,
+    .token.keyword-array,
+    .token.package,
+    .token.regex {
+        color: var(--prismColorKeyword)
+    }
+
+    .token.function,
+    .token.selector .token.class,
+    .token.selector .token.id {
+        color: var(--prismColorFunction)
+    }
+
+    .token.atrule .token.rule,
+    .token.combinator,
+    .token.keyword,
+    .token.operator,
+    .token.pseudo-class,
+    .token.pseudo-element,
+    .token.selector,
+    .token.unit {
+        color: var(--prismColorSelector)
+    }
+
+    .token.deleted,
+    .token.important {
+        color: var(--prismColorDeleted)
+    }
+
+    .token.keyword-this,
+    .token.this {
+        color: var(--prismColorThis)
+    }
+
+    .token.bold,
+    .token.important,
+    .token.keyword-this,
+    .token.this {
+        font-weight: 700
+    }
+
+    .token.delimiter.important {
+        font-weight: inherit
+    }
+
+    .token.italic {
+        font-style: italic
+    }
+
+    .token.entity {
+        cursor: help
+    }
+
+    .language-markdown .token.title,
+    .language-markdown .token.title .token.punctuation {
+        color: var(--prismColorThis);
+        font-weight: 700
+    }
+
+    .language-markdown .token.blockquote.punctuation {
+        color: var(--prismColorKeyword)
+    }
+
+    .language-markdown .token.code {
+        color: var(--prismColorPunctuation)
+    }
+
+    .language-markdown .token.hr.punctuation {
+        color: var(--prismColorThis)
+    }
+
+    .language-markdown .token.url>.token.content {
+        color: var(--prismColorValue)
+    }
+
+    .language-markdown .token.url-link {
+        color: var(--prismColorAttribute)
+    }
+
+    .language-markdown .token.list.punctuation {
+        color: var(--prismColorKeyword)
+    }
+
+    .language-markdown .token.table-header {
+        color: var(--prismColorText)
+    }
+
+    .language-json .token.operator {
+        color: var(--prismColorText)
+    }
+
+    .language-scss .token.variable {
+        color: var(--prismColorPunctuation)
+    }
+
+    .token.token.cr:before,
+    .token.token.lf:before,
+    .token.token.space:before,
+    .token.token.tab:not(:empty):before {
+        color: var(--prismColorCdataComment)
+    }
+
+    div.code-toolbar>.toolbar.toolbar>.toolbar-item>a,
+    div.code-toolbar>.toolbar.toolbar>.toolbar-item>button {
+        color: var(--prismColorToolbarText);
+        background: var(--prismColorToolbarBackground)
+    }
+
+    div.code-toolbar>.toolbar.toolbar>.toolbar-item>a:focus,
+    div.code-toolbar>.toolbar.toolbar>.toolbar-item>a:hover,
+    div.code-toolbar>.toolbar.toolbar>.toolbar-item>button:focus,
+    div.code-toolbar>.toolbar.toolbar>.toolbar-item>button:hover {
+        color: var(--prismColorToolbarText);
+        background: var(--prismColorToolbarHover);
+        text-decoration: none
+    }
+
+    div.code-toolbar>.toolbar.toolbar>.toolbar-item>span,
+    div.code-toolbar>.toolbar.toolbar>.toolbar-item>span:focus,
+    div.code-toolbar>.toolbar.toolbar>.toolbar-item>span:hover {
+        color: var(--prismColorToolbarText);
+        background: #3c526d
+    }
+
+    .line-highlight.line-highlight {
+        background: var(--prismColorLineHighlightBackground);
+        background: linear-gradient(to right, var(--prismColorLineHighlightBackground) 70%, var(--prismColorLineHighlightGradient))
+    }
+
+    .line-highlight.line-highlight:before,
+    .line-highlight.line-highlight[data-end]:after {
+        background-color: var(--prismColorCdataComment);
+        color: var(--prismColorLineHighlightText);
+        box-shadow: 0 1px var(--prismColorAccent)
+    }
+
+    pre[id].linkable-line-numbers.linkable-line-numbers span.line-numbers-rows>span:hover:before {
+        background-color: var(--prismColorCdataComment)
+    }
+
+    .line-numbers.line-numbers .line-numbers-rows {
+        border-right: 1px solid var(--prismColorLineNumbersBorder);
+        background: var(--prismColorLineNumbersBackground)
+    }
+
+    .line-numbers .line-numbers-rows>span:before {
+        color: var(--colorLineNumbersText)
+    }
+
+    .rainbow-braces .token.token.punctuation.brace-level-1,
+    .rainbow-braces .token.token.punctuation.brace-level-5,
+    .rainbow-braces .token.token.punctuation.brace-level-9 {
+        color: var(--prismColorBraceLevel1)
+    }
+
+    .rainbow-braces .token.token.punctuation.brace-level-10,
+    .rainbow-braces .token.token.punctuation.brace-level-2,
+    .rainbow-braces .token.token.punctuation.brace-level-6 {
+        color: var(--prismColorBraceLevel2)
+    }
+
+    .rainbow-braces .token.token.punctuation.brace-level-11,
+    .rainbow-braces .token.token.punctuation.brace-level-3,
+    .rainbow-braces .token.token.punctuation.brace-level-7 {
+        color: var(--prismColorBraceLevel3)
+    }
+
+    .rainbow-braces .token.token.punctuation.brace-level-12,
+    .rainbow-braces .token.token.punctuation.brace-level-4,
+    .rainbow-braces .token.token.punctuation.brace-level-8 {
+        color: var(--prismColorBraceLevel4)
+    }
+
+    pre.diff-highlight>code .token.token.deleted:not(.prefix),
+    pre>code.diff-highlight .token.token.deleted:not(.prefix) {
+        background-color: var(--prismColorDiffDeleted)
+    }
+
+    pre.diff-highlight>code .token.token.inserted:not(.prefix),
+    pre>code.diff-highlight .token.token.inserted:not(.prefix) {
+        background-color: var(--prismColorDiffInserted)
+    }
+
+    .command-line .command-line-prompt {
+        border-right: 1px solid var(--prismColorAccent)
+    }
+
+    .command-line .command-line-prompt>span:before {
+        color: var(--prismColorCdataComment)
+    }
+}

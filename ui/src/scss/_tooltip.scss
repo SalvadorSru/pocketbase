@@ -7,18 +7,18 @@
     vertical-align: top;
     max-width: 275px;
     padding: 3px 5px;
-    color: #fff;
+    color: var(--tooltipColor);
     text-align: center;
     font-family: var(--baseFontFamily);
     font-size: var(--smFontSize);
     line-height: var(--smLineHeight);
     border-radius: var(--baseRadius);
-    background: var(--tooltipColor);
+    background: var(--tooltipBackgroundColor);
     pointer-events: none;
     user-select: none;
     transition: opacity var(--baseAnimationSpeed),
-                visibility var(--baseAnimationSpeed),
-                transform var(--baseAnimationSpeed);
+        visibility var(--baseAnimationSpeed),
+        transform var(--baseAnimationSpeed);
     transform: translateY(1px);
     backface-visibility: hidden;
     white-space: pre-line;

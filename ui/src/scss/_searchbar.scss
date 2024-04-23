@@ -13,19 +13,24 @@
     background: var(--baseAlt1Color);
     border-radius: var(--btnHeight);
     transition: color var(--baseAnimationSpeed),
-                background var(--baseAnimationSpeed),
-                box-shadow var(--baseAnimationSpeed);
-    & > :first-child {
+        background var(--baseAnimationSpeed),
+        box-shadow var(--baseAnimationSpeed);
+
+    &> :first-child {
         border-top-left-radius: var(--btnHeight);
         border-bottom-left-radius: var(--btnHeight);
     }
-    & > :last-child {
+
+    &> :last-child {
         border-top-right-radius: var(--btnHeight);
         border-bottom-right-radius: var(--btnHeight);
     }
+
     .btn {
         border-radius: var(--btnHeight);
+        color: var(--baseColor);
     }
+
     .code-editor,
     input,
     input:focus {
@@ -39,26 +44,32 @@
         padding-top: 0;
         padding-bottom: 0;
     }
+
     .cm-editor {
         flex-grow: 0;
         margin-top: auto;
         margin-bottom: auto;
     }
-    label > i {
+
+    label>i {
         line-height: inherit;
     }
+
     .search-options {
         flex-shrink: 0;
         width: 90px;
+
         .selected-container {
             border-radius: inherit;
             background: none;
             padding-right: 25px !important;
         }
+
         &:not(:focus-within) .selected-container {
             color: var(--txtHintColor);
         }
     }
+
     &:focus-within {
         color: var(--txtPrimaryColor);
         background: var(--baseAlt2Color);

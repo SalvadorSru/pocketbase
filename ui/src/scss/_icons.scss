@@ -431,7 +431,7 @@ i {
 .ri-close-circle-fill:before { content: "\eb96"; }
 .ri-close-circle-line:before { content: "\eb97"; }
 .ri-close-fill:before { content: "\eb98"; }
-.ri-close-line:before { content: "\eb99"; }
+.ri-close-line:before { content: "\eb99"; color: var(--closeLineColor) }
 .ri-closed-captioning-fill:before { content: "\eb9a"; }
 .ri-closed-captioning-line:before { content: "\eb9b"; }
 .ri-cloud-fill:before { content: "\eb9c"; }

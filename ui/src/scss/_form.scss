@@ -11,6 +11,7 @@ button {
     font-weight: inherit;
     line-height: inherit;
 }
+
 .btn {
     position: relative;
     z-index: 1;
@@ -32,17 +33,19 @@ button {
     text-decoration: none;
     line-height: 1;
     font-weight: 600;
-    color: #fff;
+    color: var(--btnColor);
     font-size: var(--baseFontSize);
     font-family: var(--baseFontFamily);
     border-radius: var(--btnRadius);
-    background: none;
+    background: var(--btnBackgroundColor, none);
     transition: color var(--baseAnimationSpeed);
+
     i {
         font-size: 1.1428em;
         vertical-align: middle;
         display: inline-block;
     }
+
     .dropdown {
         user-select: text;
     }
@@ -60,11 +63,11 @@ button {
         pointer-events: none;
         user-select: none;
         backface-visibility: hidden;
-        background: var(--primaryColor);
+        background: var(--btnBeforeBackgroundColor);
         transition: filter var(--baseAnimationSpeed),
-                    opacity var(--baseAnimationSpeed),
-                    transform var(--baseAnimationSpeed),
-                    background var(--baseAnimationSpeed);
+            opacity var(--baseAnimationSpeed),
+            transform var(--baseAnimationSpeed),
+            background var(--baseAnimationSpeed);
     }
 
     // hover/active states
@@ -74,9 +77,11 @@ button {
             opacity: 0.9;
         }
     }
+
     &.active,
     &:active {
         z-index: 999;
+
         &:before {
             opacity: 0.8;
             transition-duration: var(--activeAnimationSpeed);
@@ -84,300 +89,347 @@ button {
     }
 
     $variationsMap: (
-        "info":    var(--infoColor),
+        "info": var(--infoColor),
         "success": var(--successColor),
-        "danger":  var(--dangerColor),
+        "danger": var(--dangerColor),
         "warning": var(--warningColor),
-        "hint":    var(--baseAlt4Color),
+        "hint": var(--baseAlt4Color),
     );
 
-    // primary styles
+// primary styles
+@each $name, $color in $variationsMap {
+    &.btn-#{$name} {
+        &:before {
+            background: $color;
+        }
+
+        &:hover,
+        &:focus-visible {
+            &:before {
+                opacity: 0.8;
+            }
+        }
+
+        &:active {
+            &:before {
+                opacity: 0.7;
+            }
+        }
+    }
+}
+
+// secondary/bordered styles
+&.btn-outline {
+    border: 2px solid currentColor;
+    background: #fff;
+}
+
+@mixin btnOpacity($base: 1, $hover: 1, $active: 1) {
+    &:before {
+        opacity: $base;
+    }
+
+    &:focus-visible,
+    &:hover {
+        &:before {
+            opacity: $hover;
+        }
+    }
+
+    &.active,
+    &:active {
+        &:before {
+            opacity: $active;
+        }
+    }
+}
+
+
+&.btn-secondary,
+&.btn-transparent,
+&.btn-outline {
+    box-shadow: none;
+    color: var(--btnVariationColor);
+    @include btnOpacity(0, 0.3, 0.45);
+
+    &:before {
+        background: var(--baseAlt3Color);
+    }
+
     @each $name, $color in $variationsMap {
         &.btn-#{$name} {
+            color: $color;
+            @include btnOpacity(0, 0.15, 0.25);
+
             &:before {
                 background: $color;
             }
-            &:hover,
-            &:focus-visible {
-                &:before {
-                    opacity: 0.8;
-                }
-            }
-            &:active {
-                &:before {
-                    opacity: 0.7;
-                }
-            }
         }
     }
 
-    // secondary/bordered styles
-    &.btn-outline {
-        border: 2px solid currentColor;
-        background: #fff;
-    }
+    &.btn-hint {
+        color: var(--btnHintColor, --txtHintColor);
 
-    @mixin btnOpacity($base: 1, $hover: 1, $active: 1) {
-        &:before {
-            opacity: $base;
-        }
         &:focus-visible,
-        &:hover {
-            &:before {
-                opacity: $hover;
-            }
-        }
-        &.active,
-        &:active {
-            &:before {
-                opacity: $active;
-            }
+        &:hover,
+        &:active,
+        &.active {
+            color: var(--btnVariationColor);
         }
     }
+}
 
-    &.btn-secondary,
-    &.btn-transparent,
+&.btn-secondary {
+    color: var(--btnSecondaryColor);
+    background-color: var(--btnSecondaryBackgroundColor);
+    @include btnOpacity(0.35, 0.5, 0.7);
+
+    @each $name, $color in $variationsMap {
+        &.btn-#{$name} {
+            @include btnOpacity(0.15, 0.25, 0.3);
+        }
+    }
+}
+
+// disabled state
+&.btn-disabled,
+&[disabled] {
+    box-shadow: none;
+    cursor: default;
+    background: var(--baseAlt1Color);
+    color: var(--txtDisabledColor) !important;
+
+    &:before {
+        display: none;
+    }
+
+    &.btn-transparent {
+        background: none;
+    }
+
     &.btn-outline {
-        box-shadow: none;
-        color: var(--txtPrimaryColor);
-        @include btnOpacity(0, 0.3, 0.45);
-        &:before {
-            background: var(--baseAlt3Color);
-        }
-        @each $name, $color in $variationsMap {
-            &.btn-#{$name} {
-                color: $color;
-                @include btnOpacity(0, 0.15, 0.25);
-                &:before {
-                    background: $color;
-                }
-            }
-        }
-        &.btn-hint {
-            color: var(--txtHintColor);
-            &:focus-visible,
-            &:hover,
-            &:active,
-            &.active {
-                color: var(--txtPrimaryColor);
-            }
-        }
+        border-color: var(--baseAlt2Color);
     }
-    &.btn-secondary {
-        @include btnOpacity(0.35, 0.5, 0.7);
-        @each $name, $color in $variationsMap {
-            &.btn-#{$name} {
-                @include btnOpacity(0.15, 0.25, 0.3);
-            }
-        }
+}
+
+// alignments
+&.txt-left {
+    text-align: left;
+    justify-content: flex-start;
+}
+
+&.txt-right {
+    text-align: right;
+    justify-content: flex-end;
+}
+
+// sizes
+&.btn-expanded {
+    min-width: 150px;
+}
+
+&.btn-expanded-sm {
+    min-width: 90px;
+}
+
+&.btn-expanded-lg {
+    min-width: 170px;
+}
+
+&.btn-lg {
+    column-gap: 10px;
+    font-size: var(--lgFontSize);
+    min-height: var(--lgBtnHeight);
+    min-width: var(--lgBtnHeight);
+    padding-left: 30px;
+    padding-right: 30px;
+
+    i {
+        font-size: 1.2666em;
     }
 
-    // disabled state
-    &.btn-disabled,
-    &[disabled] {
-        box-shadow: none;
-        cursor: default;
-        background: var(--baseAlt1Color);
-        color: var(--txtDisabledColor) !important;
-        &:before {
-            display: none;
-        }
-        &.btn-transparent {
-            background: none;
-        }
-        &.btn-outline {
-            border-color: var(--baseAlt2Color);
-        }
-    }
-
-    // alignments
-    &.txt-left {
-        text-align: left;
-        justify-content: flex-start;
-    }
-    &.txt-right {
-        text-align: right;
-        justify-content: flex-end;
-    }
-
-    // sizes
     &.btn-expanded {
-        min-width: 150px;
+        min-width: 240px;
     }
+
     &.btn-expanded-sm {
-        min-width: 90px;
+        min-width: 160px;
     }
+
     &.btn-expanded-lg {
-        min-width: 170px;
+        min-width: 300px;
     }
-    &.btn-lg {
-        column-gap: 10px;
-        font-size: var(--lgFontSize);
-        min-height: var(--lgBtnHeight);
-        min-width: var(--lgBtnHeight);
-        padding-left: 30px;
-        padding-right: 30px;
-        i {
-            font-size: 1.2666em;
-        }
-        &.btn-expanded {
-            min-width: 240px;
-        }
-        &.btn-expanded-sm {
-            min-width: 160px;
-        }
-        &.btn-expanded-lg {
-            min-width: 300px;
+}
+
+&.btn-sm,
+&.btn-xs {
+    column-gap: 5px;
+    font-size: var(--smFontSize);
+    min-height: var(--smBtnHeight);
+    min-width: var(--smBtnHeight);
+    padding-left: 12px;
+    padding-right: 12px;
+
+    i {
+        font-size: 1rem;
+    }
+
+    &.btn-expanded {
+        min-width: 100px;
+    }
+
+    &.btn-expanded-sm {
+        min-width: 80px;
+    }
+
+    &.btn-expanded-lg {
+        min-width: 130px;
+    }
+}
+
+&.btn-xs {
+    padding-left: 7px;
+    padding-right: 7px;
+    min-width: var(--xsBtnHeight);
+    min-height: var(--xsBtnHeight);
+}
+
+&.btn-block {
+    display: flex;
+    width: 100%;
+}
+
+// pill
+&.btn-pill {
+    border-radius: 30px;
+}
+
+// circle
+&.btn-circle {
+    border-radius: 50%;
+    padding: 0;
+    gap: 0;
+
+    i {
+        $iconSize: 19px;
+        font-size: 1.2857rem;
+        text-align: center;
+        width: $iconSize;
+        height: $iconSize;
+        line-height: $iconSize;
+
+        &:before {
+            margin: 0;
+            display: block;
         }
     }
+
+    &.btn-sm i {
+        font-size: 1.1rem;
+    }
+
+    &.btn-xs i {
+        font-size: 1.05rem;
+    }
+}
+
+// loading
+&.btn-loading {
+    --loaderSize: 24px;
+
+    cursor: default;
+    pointer-events: none;
+
+    &:after {
+        content: "\eec4";
+        position: absolute;
+        display: inline-block;
+        vertical-align: top;
+        left: 50%;
+        top: 50%;
+        width: var(--loaderSize);
+        height: var(--loaderSize);
+        line-height: var(--loaderSize);
+        font-size: var(--loaderSize);
+        color: inherit;
+        text-align: center;
+        font-weight: normal;
+        margin-left: (calc(var(--loaderSize) * -0.5));
+        margin-top: (calc(var(--loaderSize) * -0.5));
+        font-family: var(--iconFontFamily);
+        animation: loaderShow var(--baseAnimationSpeed),
+            rotate 0.9s var(--baseAnimationSpeed) infinite linear;
+    }
+
+    &>* {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
     &.btn-sm,
     &.btn-xs {
-        column-gap: 5px;
-        font-size: var(--smFontSize);
-        min-height: var(--smBtnHeight);
-        min-width: var(--smBtnHeight);
-        padding-left: 12px;
-        padding-right: 12px;
+        --loaderSize: 20px;
+    }
+
+    &.btn-lg {
+        --loaderSize: 28px;
+    }
+}
+
+// interact
+&.btn-prev,
+&.btn-next {
+    i {
+        transition: transform var(--baseAnimationSpeed);
+    }
+
+    &:hover,
+    &:focus-within {
         i {
-            font-size: 1rem;
-        }
-        &.btn-expanded {
-            min-width: 100px;
-        }
-        &.btn-expanded-sm {
-            min-width: 80px;
-        }
-        &.btn-expanded-lg {
-            min-width: 130px;
+            transform: translateX(3px);
         }
     }
-    &.btn-xs {
-        padding-left: 7px;
-        padding-right: 7px;
-        min-width: var(--xsBtnHeight);
-        min-height: var(--xsBtnHeight);
-    }
-    &.btn-block {
-        display: flex;
-        width: 100%;
-    }
+}
 
-    // pill
-    &.btn-pill {
-        border-radius: 30px;
-    }
+&.btn-prev {
 
-    // circle
-    &.btn-circle {
-        border-radius: 50%;
-        padding: 0;
-        gap: 0;
+    &:hover,
+    &:focus-within {
         i {
-            $iconSize: 19px;
-            font-size: 1.2857rem;
-            text-align: center;
-            width: $iconSize;
-            height: $iconSize;
-            line-height: $iconSize;
-            &:before {
-                margin: 0;
-                display: block;
-            }
-        }
-        &.btn-sm i {
-            font-size: 1.1rem;
-        }
-        &.btn-xs i {
-            font-size: 1.05rem;
+            transform: translateX(-3px);
         }
     }
+}
 
-    // loading
-    &.btn-loading {
-        --loaderSize: 24px;
-
-        cursor: default;
-        pointer-events: none;
-        &:after {
-            content: "\eec4";
-            position: absolute;
-            display: inline-block;
-            vertical-align: top;
-            left: 50%;
-            top: 50%;
-            width: var(--loaderSize);
-            height: var(--loaderSize);
-            line-height: var(--loaderSize);
-            font-size: var(--loaderSize);
-            color: inherit;
-            text-align: center;
-            font-weight: normal;
-            margin-left: (calc(var(--loaderSize) * -0.5));
-            margin-top: (calc(var(--loaderSize) * -0.5));
-            font-family: var(--iconFontFamily);
-            animation: loaderShow var(--baseAnimationSpeed),
-                       rotate 0.9s var(--baseAnimationSpeed) infinite linear;
-        }
-        & > * {
-            opacity: 0;
-            transform: scale(0.9);
-        }
-        &.btn-sm,
-        &.btn-xs {
-            --loaderSize: 20px;
-        }
-        &.btn-lg {
-            --loaderSize: 28px;
-        }
-    }
-
-    // interact
-    &.btn-prev,
-    &.btn-next {
-        i {
-            transition: transform var(--baseAnimationSpeed);
-        }
-        &:hover,
-        &:focus-within {
-            i {
-                transform: translateX(3px);
-            }
-        }
-    }
-    &.btn-prev {
-        &:hover,
-        &:focus-within {
-            i {
-                transform: translateX(-3px);
-            }
-        }
-    }
-
-    // scrolling helpers
-    &.btn-horizontal-sticky {
-        position: sticky;
-        left: var(--xsSpacing);
-        right: var(--xsSpacing);
-    }
+// scrolling helpers
+&.btn-horizontal-sticky {
+    position: sticky;
+    left: var(--xsSpacing);
+    right: var(--xsSpacing);
+}
 }
 
 .btns-group {
     display: inline-flex;
     align-items: center;
     gap: var(--xsSpacing);
+
     &.no-gap {
         gap: 0;
-        > * {
+
+        >* {
             border-radius: 0;
             min-width: 0;
             box-shadow: -1px 0px 0px 0px rgba(#fff, 0.1);
         }
-        > *:first-child {
+
+        >*:first-child {
             border-top-left-radius: var(--btnRadius);
             border-bottom-left-radius: var(--btnRadius);
             box-shadow: none;
         }
-        > *:last-child {
+
+        >*:last-child {
             border-top-right-radius: var(--btnRadius);
             border-bottom-right-radius: var(--btnRadius);
         }
@@ -389,7 +441,7 @@ button {
     width: 100%;
     outline: 0;
     border: 0;
-    margin:  0;
+    margin: 0;
     background: none;
     padding: 5px 10px;
     line-height: 20px;
@@ -401,31 +453,36 @@ button {
     font-family: var(--baseFontFamily);
     font-weight: normal;
     border-radius: var(--baseRadius);
-    overflow: auto; /* fallback */
+    overflow: auto;
+    /* fallback */
     overflow: overlay;
+
     &::placeholder {
-      color: var(--txtDisabledColor);
+        color: var(--txtDisabledColor);
     }
+
     &:focus,
     &:focus-within {
-        @include scrollbar(
-            $thumbColor: var(--baseAlt3Color),
-            $thumbActiveColor: var(--baseAlt4Color)
-        );
+        @include scrollbar($thumbColor: var(--baseAlt3Color),
+            $thumbActiveColor: var(--baseAlt4Color));
     }
+
     &[readonly],
     &.readonly {
         cursor: default;
         color: var(--txtHintColor);
     }
+
     &[disabled],
     &.disabled {
         cursor: default;
         color: var(--txtDisabledColor);
     }
+
     &.txt-mono {
         line-height: var(--smLineHeight);
     }
+
     &.code {
         font-size: 15px;
         line-height: 1.379rem;
@@ -438,39 +495,48 @@ select,
 textarea {
     @extend %input;
 }
+
 input {
     // Safari and GNOME Web has a default height and ignores the min-height
     height: var(--inputHeight);
 }
+
 input:-webkit-autofill {
     -webkit-text-fill-color: var(--txtPrimaryColor);
     -webkit-box-shadow: inset 0 0 0 50px var(--baseAlt1Color);
 }
+
 .form-field:focus-within input:-webkit-autofill,
 input:-webkit-autofill:focus {
     -webkit-box-shadow: inset 0 0 0 50px var(--baseAlt2Color);
 }
+
 input[type="file"] {
     padding: 9px;
 }
+
 input[type="checkbox"],
 input[type="radio"] {
     width: auto;
     height: auto;
     display: inline;
 }
+
 input[type=number] {
     -moz-appearance: textfield;
     appearance: textfield;
 }
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
 }
+
 textarea {
     min-height: 80px;
     resize: vertical;
 }
+
 select {
     padding-left: 8px;
 }
@@ -482,14 +548,17 @@ select {
     display: block;
     width: 100%;
     margin-bottom: var(--baseSpacing);
+
     %input {
         z-index: 0;
         padding-left: var(--hPadding);
         padding-right: var(--hPadding);
     }
+
     select {
         padding-left: 8px;
     }
+
     label {
         display: flex;
         width: 100%;
@@ -508,31 +577,40 @@ select {
         border: 0;
         border-top-left-radius: var(--baseRadius);
         border-top-right-radius: var(--baseRadius);
-        & ~ %input {
+
+        &~%input {
             border-top: 0;
             padding-top: 2px;
             padding-bottom: 8px;
             border-top-left-radius: 0;
             border-top-right-radius: 0;
         }
+
         i {
             font-size: 0.96rem;
             margin-bottom: -1px;
+
             &:before {
                 margin: 0;
             }
         }
     }
-    %input, label {
+
+    %input,
+    label {
         background: var(--baseAlt1Color);
         transition: color var(--baseAnimationSpeed),
-                    background var(--baseAnimationSpeed),
-                    box-shadow var(--baseAnimationSpeed);
+            background var(--baseAnimationSpeed),
+            box-shadow var(--baseAnimationSpeed);
     }
+
     &:focus-within {
-        %input, label {
+
+        %input,
+        label {
             background: var(--baseAlt2Color);
         }
+
         label {
             color: var(--txtPrimaryColor);
         }
@@ -548,21 +626,26 @@ select {
         right: var(--hPadding);
         min-height: var(--inputHeight);
         color: var(--txtHintColor);
+
         .btn {
             margin-right: -5px;
         }
-        &:not(.prefix) ~ %input {
+
+        &:not(.prefix)~%input {
             padding-right: 45px;
         }
+
         &.prefix {
             right: auto;
             left: var(--hPadding);
-            & ~ %input {
+
+            &~%input {
                 padding-left: 45px;
             }
         }
     }
-    label ~ .form-field-addon {
+
+    label~.form-field-addon {
         min-height: calc(26px + var(--inputHeight));
     }
 
@@ -575,10 +658,12 @@ select {
         line-height: var(--smLineHeight);
         color: var(--txtHintColor);
         word-break: break-word;
+
         pre {
             white-space: pre-wrap;
         }
     }
+
     .help-block-error {
         color: var(--dangerColor);
     }
@@ -586,40 +671,47 @@ select {
     // states
     &.error,
     &.invalid {
-        > label {
+        >label {
             color: var(--dangerColor);
         }
     }
+
     &.invalid {
-        label, %input {
+
+        label,
+        %input {
             background: var(--dangerAltColor);
         }
     }
+
     &.required:not(.form-field-toggle) {
-        > label:after {
+        >label:after {
             content: '*';
             color: var(--dangerColor);
             margin-top: -2px;
             margin-left: -2px;
         }
     }
+
     &.readonly,
     &.disabled {
-        label, %input {
+
+        label,
+        %input {
             background: var(--baseAlt1Color);
         }
-        > label {
+
+        >label {
             color: var(--txtHintColor);
         }
-        &.required > label:after {
+
+        &.required>label:after {
             opacity: 0.5;
         }
     }
+
     &.disabled {
-        label, %input {
-            box-shadow: inset 0 0 0 var(--btnHeight) rgba(#fff, 0.45);
-        }
-        > label {
+        >label {
             color: var(--txtDisabledColor);
         }
     }
@@ -641,7 +733,8 @@ select {
         pointer-events: none;
         box-shadow: none;
         opacity: 0;
-        ~ label {
+
+        ~label {
             border: 0;
             margin: 0;
             outline: 0;
@@ -659,6 +752,7 @@ select {
             font-size: var(--baseFontSize);
             text-transform: none;
             color: var(--txtPrimaryColor);
+
             &:before {
                 content: '';
                 display: inline-block;
@@ -679,21 +773,24 @@ select {
                 border-radius: var(--baseRadius);
                 border: 2px solid var(--baseAlt3Color);
                 transition: transform var(--baseAnimationSpeed),
-                            border-color var(--baseAnimationSpeed),
-                            color var(--baseAnimationSpeed),
-                            background var(--baseAnimationSpeed);
+                    border-color var(--baseAnimationSpeed),
+                    color var(--baseAnimationSpeed),
+                    background var(--baseAnimationSpeed);
             }
+
             &:active:before {
                 transform: scale(0.9);
             }
         }
-        &:focus ~ label,
-        & ~ label:hover {
+
+        &:focus~label,
+        &~label:hover {
             &:before {
                 border-color: var(--baseAlt4Color);
             }
         }
-        &:checked ~ label {
+
+        &:checked~label {
             &:before {
                 content: '\eb7a';
                 box-shadow: none;
@@ -702,17 +799,20 @@ select {
                 border-color: var(--successColor);
             }
         }
-        &:disabled ~ label {
+
+        &:disabled~label {
             pointer-events: none;
             cursor: not-allowed;
             color: var(--txtDisabledColor);
+
             &:before {
                 opacity: 0.5;
             }
         }
     }
+
     input[type="radio"] {
-        & ~ label:before {
+        &~label:before {
             border-radius: 50%;
             font-size: 1rem;
         }
@@ -722,6 +822,7 @@ select {
         @extend %block;
         position: relative;
         margin: 0 0 var(--xsSpacing);
+
         &:last-child {
             margin-bottom: 0;
         }
@@ -731,20 +832,25 @@ select {
     &.form-field-toggle {
         @mixin toggleSize($toggleWidth: 40px, $toggleHeight: 24px) {
             $toggleSize: $toggleHeight - 8;
-            $toggleOffset: ($toggleHeight - $toggleSize) * 0.5;
+            $toggleOffset: (
+                $toggleHeight - $toggleSize) * 0.5;
+
             input[type="radio"],
             input[type="checkbox"] {
-                & ~ label {
+                &~label {
                     min-height: $toggleHeight;
                     padding-left: $toggleWidth + 7px;
+
                     &:empty {
                         padding-left: $toggleWidth;
                     }
+
                     &:before {
                         width: $toggleWidth;
                         height: $toggleHeight;
                         border-radius: $toggleHeight;
                     }
+
                     &:after {
                         top: $toggleOffset;
                         left: $toggleOffset;
@@ -753,7 +859,8 @@ select {
                         border-radius: $toggleSize;
                     }
                 }
-                &:checked ~ label {
+
+                &:checked~label {
                     &:after {
                         left: $toggleWidth - $toggleSize - $toggleOffset;
                     }
@@ -763,94 +870,112 @@ select {
 
         input[type="radio"],
         input[type="checkbox"] {
-            & ~ label {
+            &~label {
                 position: relative;
+
                 &:before {
                     content: '';
                     border: 0;
                     box-shadow: none;
-                    background: var(--baseAlt3Color);
-                    transition: background var(--activeAnimationSpeed);
-                }
-                &:after {
-                    content: '';
-                    position: absolute;
-                    z-index: 1;
-                    cursor: pointer;
-                    background: var(--baseColor);
-                    transition: left var(--activeAnimationSpeed),
-                                transform var(--activeAnimationSpeed),
-                                background var(--activeAnimationSpeed);
-                    @include shadowize();
-                }
-                &:active:before {
-                    transform: none;
-                }
-                &:active:after {
-                    transform: scale(0.9);
-                }
+                    background: var(--baseAlt3Color
+                    );
+                transition: background var(--activeAnimationSpeed);
             }
-            &:focus-visible ~ label {
-                &:before {
-                    box-shadow: 0 0 0 2px var(--baseAlt2Color);
-                }
+
+            &:after {
+                content: '';
+                position: absolute;
+                z-index: 1;
+                cursor: pointer;
+                background: var(--baseColor);
+                transition: left var(--activeAnimationSpeed),
+                    transform var(--activeAnimationSpeed),
+                    background var(--activeAnimationSpeed);
+                @include shadowize();
             }
-            & ~ label:hover {
-                &:before {
-                    background: var(--baseAlt4Color);
-                }
+
+            &:active:before {
+                transform: none;
             }
-            &:checked ~ label {
-                &:before {
-                    background: var(--successColor);
-                }
-                &:after {
-                    background: var(--baseColor);
-                }
+
+            &:active:after {
+                transform: scale(0.9);
             }
         }
 
-        @include toggleSize(40px, 24px);
+        &:focus-visible~label {
+            &:before {
+                box-shadow: 0 0 0 2px var(--baseAlt2Color);
+            }
+        }
 
-        &.form-field-sm {
-            @include toggleSize(32px, 20px);
+        &~label:hover {
+            &:before {
+                background: var(--baseAlt4Color);
+            }
+        }
+
+        &:checked~label {
+            &:before {
+                background: var(--successColor);
+            }
+
+            &:after {
+                background: var(--baseColor);
+            }
         }
     }
+
+    @include toggleSize(40px, 24px);
+
+    &.form-field-sm {
+        @include toggleSize(32px, 20px);
+    }
+}
 }
 
 .form-field-group {
     display: flex;
     width: 100%;
     align-items: center;
-    > .form-field {
+
+    >.form-field {
         flex-grow: 1;
         border-left: 1px solid var(--baseAlt2Color);
+
         &:first-child {
             border-left: 0;
         }
+
         &:not(:first-child) {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
-            > label {
+
+            >label {
                 border-top-left-radius: 0;
             }
-            > %input,
-            > .select .selected-container {
+
+            >%input,
+            >.select .selected-container {
                 border-bottom-left-radius: 0;
             }
         }
+
         &:not(:last-child) {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
-            > label {
+
+            >label {
                 border-top-right-radius: 0;
             }
-            > %input,
-            > .select .selected-container {
+
+            >%input,
+            >.select .selected-container {
                 border-bottom-right-radius: 0;
             }
         }
     }
+
     @for $i from 12 through 1 {
         .form-field.col-#{$i} {
             width: math.div(100%, math.div(12, $i));
@@ -863,13 +988,16 @@ select {
     position: relative;
     display: block;
     outline: 0;
+
     .option {
         user-select: none;
         column-gap: 5px;
+
         .icon {
             min-width: 20px;
             text-align: center;
             line-height: inherit;
+
             i {
                 vertical-align: middle;
                 line-height: inherit;
@@ -881,9 +1009,11 @@ select {
     .txt-placeholder {
         color: var(--txtHintColor);
     }
-    label ~ & .selected-container {
+
+    label~& .selected-container {
         border-top: 0;
     }
+
     .selected-container {
         @extend %input;
         position: relative;
@@ -895,6 +1025,7 @@ select {
         padding-bottom: 0px;
         padding-right: 35px !important;
         user-select: none;
+
         &:after {
             $size: 20px;
             content: "\ea4d";
@@ -913,17 +1044,20 @@ select {
             align-self: flex-end;
             color: var(--txtHintColor);
             transition: color var(--baseAnimationSpeed),
-                        transform var(--baseAnimationSpeed);
+                transform var(--baseAnimationSpeed);
         }
+
         &:active,
         &.active {
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
+
             &:after {
                 color: var(--txtPrimaryColor);
                 transform: rotate(180deg);
             }
         }
+
         .option {
             display: flex;
             width: 100%;
@@ -931,30 +1065,36 @@ select {
             max-width: 100%;
             user-select: text;
         }
+
         .clear {
             margin-left: auto;
             cursor: pointer;
             color: var(--txtHintColor);
             transition: color var(--baseAnimationSpeed);
+
             i {
                 display: inline-block;
                 vertical-align: middle;
                 line-height: 1;
             }
+
             &:hover {
                 color: var(--txtPrimaryColor);
             }
         }
     }
+
     &.multiple .selected-container {
         display: flex;
         align-items: center;
         padding-left: 2px;
         row-gap: 3px;
         column-gap: 4px;
+
         .txt-placeholder {
             margin-left: 5px;
         }
+
         .option {
             display: inline-flex;
             width: auto;
@@ -964,10 +1104,12 @@ select {
             background: var(--baseColor);
         }
     }
+
     &:not(.multiple) .selected-container {
         .label {
             margin-left: -2px;
         }
+
         .option .txt {
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -976,33 +1118,42 @@ select {
             line-height: normal;
         }
     }
+
     &:not(.disabled) .selected-container:hover {
         cursor: pointer;
     }
+
     &.readonly,
     &.disabled {
         color: var(--txtHintColor);
         pointer-events: none;
+
         .txt-placeholder {
             color: inherit;
         }
+
         .selected-container {
             color: inherit;
+
             .link-hint {
                 pointer-events: auto;
             }
+
             *:not(.link-hint) {
                 color: inherit !important;
             }
+
             &:after,
             .clear {
                 display: none;
             }
+
             &:hover {
                 cursor: inherit;
             }
         }
     }
+
     &.disabled {
         color: var(--txtDisabledColor);
     }
@@ -1014,6 +1165,7 @@ select {
         padding: 5px 12px;
         margin: 0;
     }
+
     .options-dropdown {
         max-height: none;
         border: 0;
@@ -1022,14 +1174,17 @@ select {
         border-top-right-radius: 0;
         margin-top: -2px;
         @include shadowize(inset 0 0 0 2px var(--baseAlt2Color));
+
         .input-group:focus-within {
             box-shadow: none;
         }
+
         .form-field.options-search {
             margin: 0px 0 5px;
             padding: 0 0 2px;
             color: var(--txtHintColor);
             border-bottom: 1px solid var(--baseAlt2Color);
+
             .input-group {
                 border-radius: 0;
                 padding: 0 0 0 10px;
@@ -1038,6 +1193,7 @@ select {
                 column-gap: 0;
                 border: 0;
             }
+
             input {
                 border: 0;
                 padding-left: 9px;
@@ -1045,6 +1201,7 @@ select {
                 background: none;
             }
         }
+
         .options-list {
             overflow: auto;
             max-height: 240px;
@@ -1054,8 +1211,10 @@ select {
             padding-right: 5px;
         }
     }
-    .options-list:not(:empty) ~ [slot="afterOptions"]:not(:empty) {
+
+    .options-list:not(:empty)~[slot="afterOptions"]:not(:empty) {
         margin: 5px -5px -5px;
+
         .btn-block {
             border-top-left-radius: 0;
             border-top-right-radius: 0;
@@ -1065,12 +1224,13 @@ select {
     }
 
     // with label
-    label ~ & {
+    label~& {
         .selected-container {
             padding-bottom: 4px;
             border-top-left-radius: 0;
             border-top-right-radius: 0;
         }
+
         &.multiple .selected-container {
             padding-top: 3px;
             padding-bottom: 3px;
@@ -1092,6 +1252,7 @@ select {
         .selected-container.active {
             border-radius: 0 0 var(--baseRadius) var(--baseRadius);
         }
+
         .options-dropdown {
             border-radius: var(--baseRadius) var(--baseRadius) 0 0;
             margin: 0;
@@ -1102,9 +1263,11 @@ select {
 .field-type-select {
     .options-dropdown {
         padding: 2px 1px 1px 2px;
+
         .form-field.options-search {
             margin: 0;
         }
+
         .options-list {
             max-height: 490px;
             display: flex;
@@ -1113,6 +1276,7 @@ select {
             width: 100%;
             padding: 0;
         }
+
         .dropdown-item {
             width: 50%;
             margin: 0;
@@ -1120,6 +1284,7 @@ select {
             border-radius: 0;
             border-bottom: 1px solid var(--baseAlt2Color);
             border-right: 1px solid var(--baseAlt2Color);
+
             &.selected {
                 background: var(--baseAlt1Color);
             }
@@ -1130,9 +1295,11 @@ select {
 .form-field-list {
     border-radius: var(--baseRadius);
     transition: box-shadow var(--baseAnimationSpeed);
+
     label {
         padding-bottom: 10px;
     }
+
     .list {
         background: var(--baseAlt1Color);
         border: 0;
@@ -1140,8 +1307,10 @@ select {
         border-bottom-left-radius: var(--baseRadius);
         border-bottom-right-radius: var(--baseRadius);
         transition: background var(--baseAnimationSpeed);
+
         .list-item {
             border-top: 1px solid var(--baseAlt2Color);
+
             &:hover,
             &:focus,
             &:focus-within,
@@ -1149,32 +1318,42 @@ select {
             &:active {
                 background: none;
             }
+
             &.selected {
                 background: var(--baseAlt2Color);
             }
+
             &.handle:not(.disabled) {
+
                 &:hover,
                 &:focus-visible {
                     background: var(--baseAlt2Color);
                 }
+
                 &:active {
                     background: var(--baseAlt3Color);
                 }
             }
+
             &.dragging {
                 z-index: 9;
                 box-shadow: inset 0 0 0 1px var(--baseAlt3Color);
             }
+
             &.dragover {
                 background: var(--baseAlt2Color);
             }
         }
     }
+
     &:focus-within {
-        .list, label {
+
+        .list,
+        label {
             background: var(--baseAlt1Color);
         }
     }
+
     &.dragover:not(:has(.dragging)) {
         box-shadow: 0px 0px 0px 2px var(--warningColor);
     }
@@ -1186,18 +1365,22 @@ select {
     display: flex;
     flex-direction: column;
     width: 100%;
-    .form-field label ~ & {
+
+    .form-field label~& {
         padding-bottom: 6px;
         padding-top: 4px;
     }
+
     .cm-editor {
         flex-grow: 1;
         border: 0 !important;
         outline: none !important;
+
         .cm-line {
             padding-left: 0;
             padding-right: 0;
         }
+
         .cm-tooltip-autocomplete {
             @include shadowize();
             border-radius: var(--baseRadius);
@@ -1206,22 +1389,27 @@ select {
             z-index: 9999;
             padding: 0 3px;
             font-size: 0.92rem;
+
             ul {
                 margin: 0;
                 border-radius: inherit;
+
                 > :first-child {
                     border-top-left-radius: inherit;
                     border-top-right-radius: inherit;
                 }
+
                 > :last-child {
                     border-bottom-left-radius: inherit;
                     border-bottom-right-radius: inherit;
                 }
             }
+
             ul li[aria-selected] {
                 background: var(--infoColor);
             }
         }
+
         .cm-scroller {
             flex-grow: 1;
             outline: 0 !important;
@@ -1229,24 +1417,29 @@ select {
             font-size: var(--baseFontSize);
             line-height: var(--baseLineHeight);
         }
+
         .cm-cursorLayer {
             .cm-cursor {
                 margin-left: 0 !important;
             }
         }
+
         .cm-placeholder {
             color: var(--txtDisabledColor);
             font-family: var(--monospaceFontFamily);
             font-size: var(--baseFontSize);
             line-height: var(--baseLineHeight);
         }
+
         .cm-selectionMatch {
             background: var(--infoAltColor);
         }
+
         &.cm-focused .cm-matchingBracket {
             background-color: rgba(50, 140, 130, 0.1);
         }
     }
+
     .ͼf {
         color: var(--dangerColor);
     }
@@ -1256,14 +1449,17 @@ select {
 .tinymce-wrapper {
     @extend %input;
     min-height: 277px;
+
     .tox-tinymce {
-        border-radius: var(--baseRadius);
+        border-radius: var(--tinyMceWrapperRadius, --baseRadius);
         border: 0;
     }
-    .form-field label ~ & {
+
+    .form-field label~& {
         position: relative;
         z-index: auto; // reset default z-index
         padding: 5px 2px 2px 2px;
+
         // blank placeholder
         &:before {
             content: '';
@@ -1278,50 +1474,63 @@ select {
         }
     }
 }
+
 body {
     .tox .tox-dialog {
         border: 0;
         border-radius: var(--baseRadius);
     }
+
     .tox .tox-dialog-wrap__backdrop {
         background: var(--overlayColor);
     }
+
     .tox .tox-tbtn {
         height: 30px;
+
         svg {
             transform: scale(0.85);
         }
     }
+
     .tox .tox-collection__item-checkmark,
     .tox .tox-collection__item-icon {
         width: 22px;
         height: 22px;
         transform: scale(0.85);
     }
+
     .tox .tox-tbtn:not(.tox-tbtn--select) {
         width: 30px;
     }
+
     .tox .tox-button,
     .tox .tox-button--secondary {
         font-size: var(--smFontSize);
     }
+
     .tox .tox-toolbar-overlord {
         @include shadowize();
     }
+
     .tox .tox-listboxfield .tox-listbox--select,
-    .tox .tox-textarea, .tox .tox-textfield,
+    .tox .tox-textarea,
+    .tox .tox-textfield,
     .tox .tox-toolbar-textfield {
         padding: 3px 5px;
     }
+
     .tox-swatch:not(.tox-swatch--remove):not(.tox-collection__item--enabled) {
         svg {
             display: none;
         }
     }
+
     .tox .tox-textarea-wrap {
         display: flex;
         flex: 1;
     }
+
     &.tox-fullscreen {
         .overlay-panel-section {
             overflow: hidden;

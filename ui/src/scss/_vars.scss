@@ -1,59 +1,71 @@
-:root {
+body {
     --baseFontFamily: 'Source Sans Pro', sans-serif, emoji;
     --monospaceFontFamily: 'Ubuntu Mono', monospace, emoji;
     --iconFontFamily: 'remixicon';
 
-    --txtPrimaryColor:  #16161a;
-    --txtHintColor:     #666f75;
+    --txtPrimaryColor: #16161a;
+    --txtHintColor: #666f75;
     --txtDisabledColor: #a0a6ac;
 
     --primaryColor: #16161a;
 
     --bodyColor: #f8f9fa;
 
-    --baseColor:     #ffffff;
+    --baseColor: #ffffff;
     --baseAlt1Color: #e4e9ec;
     --baseAlt2Color: #d7dde4;
     --baseAlt3Color: #c6cdd7;
     --baseAlt4Color: #a5b0c0;
 
-    --infoColor:       #5499e8;
-    --infoAltColor:    #cee2f8;
-    --successColor:    #32ad84;
+    --infoColor: #5499e8;
+    --infoAltColor: #cee2f8;
+    --successColor: #32ad84;
     --successAltColor: #c4eedc;
-    --dangerColor:     #e34562;
-    --dangerAltColor:  #f7cad2;
-    --warningColor:    #ff944d;
+    --dangerColor: #e34562;
+    --dangerAltColor: #f7cad2;
+    --warningColor: #ff944d;
     --warningAltColor: #ffd4b8;
 
-    --overlayColor:   rgba(53, 71, 104, 0.28);
-    --tooltipColor:   rgba(0, 0, 0, 0.85);
-    --shadowColor:    rgba(0, 0, 0, 0.06);
+    --overlayColor: rgba(53, 71, 104, 0.28);
+    --tooltipBackgroundColor: rgba(0, 0, 0, 0.85);
+    --shadowColor: rgba(0, 0, 0, 0.06);
+
+    --tooltipColor: #fff;
+
+    --btnColor: #fff;
+    --btnVariationColor: #000;
+    --btnBackgroundColor: none;
+    --btnHintColor: var(--txtHintColor);
+    --btnBeforeColor: #000;
+    --btnBeforeBackgroundColor: var(--txtPrimaryColor);
+    --btnSecondaryColor: #000;
+
+    --onSearchBarColor: currentColor;
 
     --baseFontSize: 14.5px;
-    --xsFontSize:   12px;
-    --smFontSize:   13px;
-    --lgFontSize:   15px;
-    --xlFontSize:   16px;
+    --xsFontSize: 12px;
+    --smFontSize: 13px;
+    --lgFontSize: 15px;
+    --xlFontSize: 16px;
 
     --baseLineHeight: 22px;
-    --smLineHeight:   16px;
-    --lgLineHeight:   24px;
+    --smLineHeight: 16px;
+    --lgLineHeight: 24px;
 
     --inputHeight: 34px;
 
-    --btnHeight:   40px;
+    --btnHeight: 40px;
     --xsBtnHeight: 22px;
     --smBtnHeight: 30px;
     --lgBtnHeight: 54px;
 
     --baseSpacing: 30px;
-    --xsSpacing:   15px;
-    --smSpacing:   20px;
-    --lgSpacing:   50px;
-    --xlSpacing:   60px;
+    --xsSpacing: 15px;
+    --smSpacing: 20px;
+    --lgSpacing: 50px;
+    --xlSpacing: 60px;
 
-    --wrapperWidth:   850px;
+    --wrapperWidth: 850px;
     --smWrapperWidth: 420px;
     --lgWrapperWidth: 1200px;
 
@@ -65,25 +77,110 @@
     --entranceAnimationSpeed: 250ms;
 
     --baseRadius: 4px;
-    --lgRadius:   12px;
-    --btnRadius:  4px;
+    --lgRadius: 12px;
+    --btnRadius: 4px;
 
     // https://developer.mozilla.org/en-US/docs/Web/CSS/accent-color
     accent-color: var(--primaryColor);
 }
 
 
+[data-theme="dark"] {
+    --txtPrimaryColor: #cfd2d6;
+    --txtHintColor: #b5bfc2;
+    --txtDisabledColor: #7e878d;
+
+    --primaryColor: #cfd2d6;
+    --bodyColor: #16161a;
+
+    --baseColor: #1a1a1e;
+    --baseAlt1Color: #25292e;
+    --baseAlt2Color: #31363d;
+    --baseAlt3Color: #424a53;
+    --baseAlt4Color: #606b79;
+
+    --tooltipColor: #000;
+
+    --btnColor: #fff;
+    --btnVariationColor: #000;
+    --btnBackgroundColor: #fff;
+    --btnHintColor: #000;
+    --btnBeforeColor: #fff;
+    --btnBeforeBackgroundColor: var(--successColor);
+    --btnSecondaryColor: #fff;
+    --btnSecondaryBackgroundColor: none;
+
+    --overlayCloseState: 1;
+    --unlockOverlayBackgroundColor: rgb(0 0 0 / .6);
+    --lockToggleHoverColor: #fff;
+
+    --infoColor: #7ca6f0;
+    --infoAltColor: #3d5376;
+    --successColor: #52c399;
+    --successAltColor: #2a5e46;
+    --dangerColor: #f46170;
+    --dangerAltColor: #79242f;
+    --warningColor: #ffab67;
+    --warningAltColor: #966636;
+
+    --overlayColor: rgba(255, 255, 255, 0.1);
+    --tooltipBackgroundColor: rgba(255, 255, 255, 0.9);
+    --shadowColor: rgba(255, 255, 255, 0.06);
+
+    --tinyMceWrapperRadius: 0px;
+    --tinyMceBackgroundColor: var(--baseAlt1Color);
+
+    --onSearchBarColor: var(--successColor);
+
+    --prismColorText: #111b27;
+    --prismColorBackground: #e3eaf2;
+    --prismColorAccent: #8da1b9;
+    --prismColorCdataComment: #919191;
+    --prismColorPunctuation: #ffffffb3;
+    --prismColorImportant: #40b4c4;
+    --prismColorAttribute: #eb64b9;
+    --prismColorClass: #74dfc4;
+    --prismColorValue: #b4dce7;
+    --prismColorKeyword: #40b4c4;
+    --prismColorFunction: #40b4c4;
+    --prismColorSelector: #eb64b9;
+    --prismColorDeleted: #eb64b9;
+    --prismColorThis: #74dfc4;
+    --prismColorToolbarText: #e3eaf2;
+    --prismColorToolbarBackground: #005a8e;
+    --prismColorToolbarHover: #005a8eda;
+    --prismColorLineHighlightBackground: #8da1b92f;
+    --prismColorLineHighlightGradient: #8da1b925;
+    --prismColorLineHighlightText: #e3eaf2;
+    --prismColorLineNumbersBorder: #8da1b97a;
+    --prismColorLineNumbersBackground: #d0dae77a;
+    --prismColorLineNumbersText: #3c526dda;
+    --prismColorBraceLevel1: #755f00;
+    --prismColorBraceLevel2: #af00af;
+    --prismColorBraceLevel3: #005a8e;
+    --prismColorBraceLevel4: #7c00aa;
+    --prismColorDiffDeleted: #c22f2e1f;
+    --prismColorDiffInserted: #116b001f;
+    --prismColorCommandLinePromptBorder: #8da1b97a;
+    --prismColorCommandLinePromptText: #3c526dda;
+
+    --overlayClose: 1;
+    --closeLineColor: #000;
+}
+
+
+
 // Maps
 // ----
 $colorsMap: (
-    "primary":     var(--primaryColor),
-    "info":        var(--infoColor),
-    "info-alt":    var(--infoAltColor),
-    "success":     var(--successColor),
+    "primary": var(--primaryColor),
+    "info": var(--infoColor),
+    "info-alt": var(--infoAltColor),
+    "success": var(--successColor),
     "success-alt": var(--successAltColor),
-    "danger":      var(--dangerColor),
-    "danger-alt":  var(--dangerAltColor),
-    "warning":     var(--warningColor),
+    "danger": var(--dangerColor),
+    "danger-alt": var(--dangerAltColor),
+    "warning": var(--warningColor),
     "warning-alt": var(--warningAltColor),
 );
 
@@ -95,9 +192,9 @@ $sidesMap: (
 );
 
 $sizesMap: (
-  "base": var(--baseSpacing),
-  "xs":   var(--xsSpacing),
-  "sm":   var(--smSpacing),
-  "lg":   var(--lgSpacing),
-  "xl":   var(--xlSpacing),
+    "base": var(--baseSpacing),
+    "xs": var(--xsSpacing),
+    "sm": var(--smSpacing),
+    "lg": var(--lgSpacing),
+    "xl": var(--xlSpacing),
 );
