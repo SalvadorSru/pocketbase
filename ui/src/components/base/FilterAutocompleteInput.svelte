@@ -48,15 +48,10 @@
         placeholder as placeholderExt,
     } from "@codemirror/view";
     import { EditorState, Compartment } from "@codemirror/state";
-    import {
-        defaultHighlightStyle,
-        syntaxHighlighting,
-        bracketMatching,
-        StreamLanguage,
-        syntaxTree,
-    } from "@codemirror/language";
+    import { bracketMatching, StreamLanguage, syntaxTree } from "@codemirror/language";
     import { defaultKeymap, indentWithTab, history, historyKeymap } from "@codemirror/commands";
     import { searchKeymap, highlightSelectionMatches } from "@codemirror/search";
+    import SetPockeTBaseSyntaxHighlighting from "@/utils/SyntaxHighlighting";
     import {
         autocompletion,
         completionKeymap,
@@ -388,7 +383,7 @@
                     drawSelection(),
                     dropCursor(),
                     EditorState.allowMultipleSelections.of(true),
-                    syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
+                    SetPockeTBaseSyntaxHighlighting(),
                     bracketMatching(),
                     closeBrackets(),
                     rectangularSelection(),
