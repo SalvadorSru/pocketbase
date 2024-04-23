@@ -15,6 +15,8 @@
     import { setErrors } from "@/stores/errors";
     import { resetConfirmation } from "@/stores/confirmation";
     import TinyMCE from "@/components/base/TinyMCE.svelte";
+    import { applyThemeOnMount } from "@/components/hooks/ToogleDarkmode";
+    import { onMount } from "svelte";
 
     let oldLocation = undefined;
 
@@ -66,6 +68,8 @@
     function logout() {
         ApiClient.logout();
     }
+
+    onMount(applyThemeOnMount);
 </script>
 
 <svelte:head>
