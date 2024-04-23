@@ -123,7 +123,12 @@
         padding: 10px;
         border-top-left-radius: 0;
         border-bottom-right-radius: 0;
+        color: var(--successColor);
         background: rgba(53, 71, 104, 0.09);
+
+        &:hover {
+            color: var(--lockToggleHoverColor, #000);
+        }
     }
     :global(.rule-field .code-editor .cm-placeholder) {
         font-family: var(--baseFontFamily);
@@ -146,7 +151,7 @@
         justify-content: end;
         text-align: center;
         border-radius: var(--baseRadius);
-        background: rgba(255, 255, 255, 0.2);
+        background: var(--unlockOverlayBackgroundColor, rgba(255, 255, 255, 0.6));
         outline: 0;
         cursor: pointer;
         text-decoration: none;
@@ -169,7 +174,9 @@
             font-weight: 600;
             line-height: var(--smLineHeight);
             transform: translateX(5px);
-            transition: transform var(--hoverAnimationSpeed), opacity var(--hoverAnimationSpeed);
+            transition:
+                transform var(--hoverAnimationSpeed),
+                opacity var(--hoverAnimationSpeed);
         }
         &:hover,
         &:focus-visible,
