@@ -6,6 +6,7 @@
     import tooltip from "@/actions/tooltip";
     import PageWrapper from "@/components/base/PageWrapper.svelte";
     import Field from "@/components/base/Field.svelte";
+    import ToggleDarkMode from "@/components/base/ToggleDarkMode.svelte";
     import SettingsSidebar from "@/components/settings/SettingsSidebar.svelte";
 
     $pageTitle = "Application settings";
@@ -79,6 +80,8 @@
         </nav>
     </header>
 
+    <ToggleDarkMode />
+
     <div class="wrapper">
         <form class="panel" autocomplete="off" on:submit|preventDefault={save}>
             {#if isLoading}
@@ -117,7 +120,6 @@
                             />
                         </label>
                     </Field>
-
                     <div class="col-lg-12 flex">
                         <div class="flex-fill" />
 
