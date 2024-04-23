@@ -43,9 +43,10 @@
         placeholder as placeholderExt,
     } from "@codemirror/view";
     import { EditorState, Compartment } from "@codemirror/state";
-    import { defaultHighlightStyle, syntaxHighlighting, bracketMatching } from "@codemirror/language";
+    import { syntaxHighlighting, bracketMatching, HighlightStyle } from "@codemirror/language";
     import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
     import { searchKeymap, highlightSelectionMatches } from "@codemirror/search";
+
     import {
         autocompletion,
         completionKeymap,
@@ -56,6 +57,7 @@
     import { json as jsonLang } from "@codemirror/lang-json";
     import { sql, SQLDialect } from "@codemirror/lang-sql";
     import { javascript as javascriptLang } from "@codemirror/lang-javascript";
+    import SetPockeTBaseSyntaxHighlighting from "@/utils/SyntaxHighlighting";
     // ---
     import CommonHelper from "@/utils/CommonHelper";
     import { collections } from "@/stores/collections";
@@ -124,7 +126,7 @@
             new CustomEvent("change", {
                 detail: { value },
                 bubbles: true,
-            })
+            }),
         );
 
         dispatch("change", value);
@@ -227,7 +229,7 @@
                     drawSelection(),
                     dropCursor(),
                     EditorState.allowMultipleSelections.of(true),
-                    syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
+                    SetPockeTBaseSyntaxHighlighting(),
                     bracketMatching(),
                     closeBrackets(),
                     rectangularSelection(),

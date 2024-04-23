@@ -26,7 +26,7 @@
     }
 </script>
 
-<div class="code-wrapper prism-light {classes}">
+<div class="code-wrapper prism-theme {classes}">
     <code>{@html formattedContent}</code>
 </div>
 
